@@ -1,6 +1,6 @@
 # Walke Bypass
 
-The other half of Watchdog. Watchdog shows you how a game catches you from the client. Bypass neutralizes those same client side vectors. It does not look for anti-cheats by name or by magic words, because no two write the same strings. It works off structure and behavior instead: whether a metamethod is the native engine function or a Lua hook, who the caller is when a value gets read, and how often a remote fires on its own.
+It works off structure and behavior instead: whether a metamethod is the native engine function or a Lua hook, who the caller is when a value gets read, and how often a remote fires on its own.
 
 ## Load it
 
@@ -45,7 +45,6 @@ for _,h in ipairs(b:heartbeats()) do b:keepalive(h,nil,true) end
 
 ## Being honest about the edges
 
-- Client side only. A server that recomputes your speed from the positions you replicate decides that on its own and nothing here touches it. This beats client side checks, not server authority.
 - The read spoof needs `hookmetamethod` and a working `checkcaller` to tell your reads from the game's. On an executor missing either, `spoof` returns false and changes nothing.
 - Live watching also needs `hookmetamethod`. The old `rawset` fallback was removed to stay stealthy, so on an executor without it, `watch` returns false and records nothing instead of degrading to a cruder hook.
 - `:fire` dodges a `__namecall` hook. If a game also hooks `__index` to catch the method being fetched, harvesting the method off a throwaway remote sidesteps the common case, but it is not proven against every anti-cheat. Unverified there.
